@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.tu.courier.controller.HomeController" prefWidth="600" prefHeight="400">
+    <top>
+        <MenuBar>
+            <Menu text="Меню">
+                <MenuItem text="Изход" onAction="#onLogout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <Text fx:id="welcomeText" text="Добре дошли!" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+            <Label text="Вашите действия:"/>
+
+            <Button fx:id="btnRegisterCourier" text="➕ Добави Куриер"
+                    visible="false" managed="false" maxWidth="200" onAction="#onRegisterCourier"/>
+
+            <Button fx:id="btnCreateShipment" text="📦 Изпрати Пратка"
+                    visible="false" managed="false" maxWidth="200" onAction="#onCreateShipment"/>
+
+            <Button fx:id="btnMyShipments" text="📋 Моите Пратки"
+                    visible="false" managed="false" maxWidth="200"/>
+
+            <Button fx:id="btnCourierShipments" text="🚚 Пратки за изпълнение"
+                    visible="false" managed="false" maxWidth="200"
+                    onAction="#onCourierShipments"/>
+
+            <Button fx:id="btnRegisterClient" text="👤 Регистрирай Клиент"
+                    visible="false" managed="false" maxWidth="200" onAction="#onRegisterClient"/>
+
+        </VBox>
+    </center>
+</BorderPane>

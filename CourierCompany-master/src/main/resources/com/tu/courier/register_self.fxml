@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.tu.courier.controller.RegisterSelfController"
+           stylesheets="@styles.css">
+
+    <VBox alignment="CENTER" spacing="15.0" maxWidth="400" styleClass="login-container">
+
+        <Text text="Регистрация на Клиент" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+        <TextField fx:id="fullNameField" promptText="Име и Фамилия"/>
+        <TextField fx:id="usernameField" promptText="Потребителско име"/>
+        <TextField fx:id="emailField" promptText="Имейл адрес"/>
+        <TextField fx:id="phoneField" promptText="Телефонен номер"/>
+
+        <PasswordField fx:id="passField" promptText="Парола (мин 8 символа)"/>
+        <PasswordField fx:id="confirmPassField" promptText="Повтори парола"/>
+
+        <Label fx:id="errorLabel" textFill="RED" wrapText="true"/>
+
+        <Button text="РЕГИСТРАЦИЯ" onAction="#onRegister" maxWidth="Infinity" styleClass="button-primary"/>
+
+        <Button text="Назад към Вход" onAction="#onBack" styleClass="link-button"/>
+    </VBox>
+
+</StackPane>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.ManageOfficesController"
+      spacing="15" prefHeight="600" prefWidth="800">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Text text="Управление на Офиси" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField" promptText="🔍 Търси по име, град, адрес..." prefWidth="250"/>
+        <Button fx:id="btnAdd" text="➕ Нов Офис" onAction="#onAddOffice" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+    </HBox>
+
+    <TableView fx:id="officesTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colName" text="Име на Офис" prefWidth="200"/>
+            <TableColumn fx:id="colCity" text="Град" prefWidth="150"/>
+            <TableColumn fx:id="colAddress" text="Адрес" prefWidth="250"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button fx:id="btnEdit" text="✏️ Редактирай" onAction="#onEditOffice" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+        <Button fx:id="btnDelete" text="🗑️ Изтрий" onAction="#onDeleteOffice" style="-fx-background-color: #c0392b; -fx-text-fill: white;"/>
+    </HBox>
+
+    <Label fx:id="statusLabel" textFill="RED"/>
+</VBox>

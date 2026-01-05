@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.tu.courier.controller.CreateShipmentController"
+            fitToWidth="true" prefHeight="750" prefWidth="700">
+
+    <VBox spacing="20" style="-fx-background-color: #f4f6f8;">
+        <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+        <Text text="СЪЗДАВАНЕ НА ПРАТКА" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2c3e50;"/>
+
+        <Label fx:id="statusLabel"
+               text=""
+               visible="false" managed="false"
+               wrapText="true"
+               maxWidth="Infinity"
+               style="-fx-background-color: #fdecea; -fx-text-fill: #b00020; -fx-padding: 10; -fx-background-radius: 6;"/>
+
+        <VBox style="-fx-background-color: white; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+            <Label text="1. ПОДАТЕЛ" style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" maxWidth="Infinity"/>
+
+            <VBox spacing="15" style="-fx-padding: 20;">
+
+                <HBox spacing="20">
+                    <RadioButton fx:id="rbSenderClient" text="Съществуващ Клиент" selected="true"/>
+                    <RadioButton fx:id="rbSenderGuest" text="Гост (Ръчно въвеждане)"/>
+                </HBox>
+
+                <Separator/>
+
+                <!-- ТЪРСЕНЕ (само за клиент) -->
+                <HBox fx:id="boxSenderSearch" spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Търси по Телефон:" prefWidth="120"/>
+                    <TextField fx:id="tfSenderSearchPhone" promptText="088..." HBox.hgrow="ALWAYS"/>
+                    <Button text="Намери" onAction="#onSearchSender"/>
+                </HBox>
+
+                <!-- РЪЧНО ВЪВЕЖДАНЕ (само за гост) -->
+                <HBox fx:id="boxSenderManual" spacing="15" visible="false" managed="false">
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label text="Име и Фамилия:"/>
+                        <TextField fx:id="tfSenderName"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label text="Телефон:"/>
+                        <TextField fx:id="tfSenderPhone"/>
+                    </VBox>
+                </HBox>
+
+                <Label fx:id="senderStatusLabel"/>
+            </VBox>
+
+        </VBox>
+
+        <VBox style="-fx-background-color: white; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+            <Label text="2. ПОЛУЧАТЕЛ" style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" maxWidth="Infinity"/>
+
+            <VBox spacing="15" style="-fx-padding: 20;">
+
+                <HBox spacing="20">
+                    <RadioButton fx:id="rbReceiverClient" text="Съществуващ Клиент" selected="true"/>
+                    <RadioButton fx:id="rbReceiverGuest" text="Гост (Ръчно въвеждане)"/>
+                </HBox>
+
+                <Separator/>
+
+                <HBox fx:id="boxReceiverSearch" spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Търси по Телефон:" prefWidth="120"/>
+                    <TextField fx:id="tfReceiverSearchPhone" promptText="088..." HBox.hgrow="ALWAYS"/>
+                    <Button text="Намери" onAction="#onSearchReceiver"/>
+                </HBox>
+
+                <HBox fx:id="boxReceiverManual" spacing="15" visible="false" managed="false">
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label text="Име и Фамилия:"/>
+                        <TextField fx:id="tfReceiverName"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label text="Телефон:"/>
+                        <TextField fx:id="tfReceiverPhone"/>
+                    </VBox>
+                </HBox>
+
+                <Label fx:id="receiverStatusLabel"/>
+            </VBox>
+
+        </VBox>
+
+        <VBox style="-fx-background-color: white; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+            <Label text="3. ДЕТАЙЛИ ЗА ДОСТАВКА" style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" maxWidth="Infinity"/>
+
+            <VBox spacing="15" style="-fx-padding: 20;">
+                <HBox spacing="20">
+                    <RadioButton fx:id="rbToAddress" text="До Адрес" selected="true"/>
+                    <RadioButton fx:id="rbToOffice" text="До Офис"/>
+                </HBox>
+
+                <StackPane alignment="TOP_LEFT">
+                    <VBox fx:id="boxAddress" spacing="5">
+                        <Label text="Точен адрес за доставка:"/>
+                        <TextField fx:id="tfAddress" promptText="Град, кв., улица, номер..."/>
+                    </VBox>
+
+                    <VBox fx:id="boxOffice" spacing="5" visible="false" managed="false">
+                        <Label text="Избери Офис от списъка:"/>
+                        <ComboBox fx:id="cbOffice" promptText="-- Избери --" maxWidth="Infinity"/>
+                    </VBox>
+                </StackPane>
+
+                <Separator/>
+
+                <HBox spacing="20">
+                    <VBox>
+                        <Label text="Тегло (кг):"/>
+                        <TextField fx:id="tfWeight" prefWidth="100"/>
+                    </VBox>
+                    <VBox>
+                        <Label text="Тип пратка:"/>
+                        <ComboBox fx:id="cbType" prefWidth="150"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+
+        <HBox alignment="CENTER_RIGHT" spacing="20">
+            <VBox alignment="CENTER_RIGHT">
+                <Label text="Крайна цена:" style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+                <Label fx:id="priceLabel" text="0.00 лв."
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2980b9;"/>
+            </VBox>
+
+            <Button text="СЪЗДАЙ ПРАТКА" onAction="#onSubmit"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 30;"/>
+        </HBox>
+
+
+    </VBox>
+</ScrollPane>

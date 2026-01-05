@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.tu.courier.controller.AdminDashboardController"
+            stylesheets="@dashboard.css"
+            prefWidth="1000" prefHeight="700">
+
+    <left>
+        <VBox styleClass="sidebar" spacing="10" prefWidth="220">
+            <VBox alignment="CENTER" spacing="5">
+                <padding><Insets bottom="20"/></padding>
+                <Text text="COURIER SYSTEM" styleClass="sidebar-title"/>
+                <Text fx:id="userLabel" text="admin" style="-fx-fill: #bdc3c7; -fx-font-size: 12px;"/>
+            </VBox>
+
+            <Separator style="-fx-opacity: 0.1; -fx-background-color: white;"/>
+
+            <Button text="➕ Създай Пратка" styleClass="menu-button"
+                    style="-fx-font-weight: bold;"
+                    onAction="#onCreateShipmentByAdmin"/>
+
+            <Button text="📦 Пратки" styleClass="menu-button" onAction="#onShipmentsClick"/>
+            <Button text="🚚 Куриери" styleClass="menu-button" onAction="#onCouriersClick"/>
+            <Button text="👥 Клиенти" styleClass="menu-button" onAction="#onClientsClick"/>
+            <Button text="🏢 Офиси" styleClass="menu-button" onAction="#onOfficesClick"/>
+            <Button text="📊 Справки" styleClass="menu-button" onAction="#onReportsClick"/>
+            <Button text="🔍 Проследи Пратка" styleClass="menu-button" onAction="#onTrackClick"/>
+
+            <Region VBox.vgrow="ALWAYS"/> <Separator style="-fx-opacity: 0.1; -fx-background-color: white;"/>
+            <Button text="⚙️ Настройки" styleClass="menu-button" onAction="#onSettingsClick"/>
+            <Button text="🚪 Изход" styleClass="menu-button" onAction="#onLogoutClick"/>
+        </VBox>
+    </left>
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_RIGHT">
+            <Label fx:id="headerLabel" text="Административен Панел" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #f4f6f8; -fx-padding: 20;">
+            <Label text="Изберете действие от менюто" style="-fx-font-size: 18px; -fx-text-fill: #95a5a6;"/>
+        </StackPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.ManageShipmentsController"
+      spacing="15" prefHeight="600" prefWidth="1000">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Text text="Всички Пратки" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Label text="Филтър:" style="-fx-font-weight: bold;"/>
+        <ComboBox fx:id="statusFilter" prefWidth="150"/>
+
+        <TextField fx:id="searchField" promptText="🔍 Търси по ID, Подател, Получател..." prefWidth="250"/>
+    </HBox>
+
+    <TableView fx:id="shipmentsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="40"/>
+            <TableColumn fx:id="colTrackingId" text="Товарителница №" prefWidth="120" style="-fx-font-weight: bold;"/>
+
+            <TableColumn fx:id="colSender" text="Подател" prefWidth="150"/>
+            <TableColumn fx:id="colReceiver" text="Получател" prefWidth="150"/>
+            <TableColumn fx:id="colAddress" text="Адрес за доставка" prefWidth="200"/>
+            <TableColumn fx:id="colPrice" text="Цена" prefWidth="80"/>
+            <TableColumn fx:id="colStatus" text="Статус" prefWidth="100"/>
+            <TableColumn fx:id="colDate" text="Дата" prefWidth="120"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button text="✏️ Редактирай Пратка" onAction="#onEditShipment" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+        <Button text="🗑️ Изтрий Пратка" onAction="#onDeleteShipment" style="-fx-background-color: #c0392b; -fx-text-fill: white;"/>
+    </HBox>
+
+    <Label fx:id="statusLabel" textFill="RED"/>
+</VBox>

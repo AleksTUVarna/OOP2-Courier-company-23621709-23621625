@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.CreateShipmentController"
+      prefWidth="400" prefHeight="500">
+
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20"/>
+    </padding>
+
+    <Text text="Нова Пратка" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Label text="Избери Получател:"/>
+    <ComboBox fx:id="receiverComboBox" promptText="-- Избери клиент --" prefWidth="300"/>
+
+    <Label text="Адрес за доставка:"/>
+    <TextField fx:id="addressField" promptText="Град, Улица, Номер"/>
+
+    <Label text="Тегло (кг):"/>
+    <TextField fx:id="weightField" promptText="Напр. 2.5"/>
+
+    <Button text="Изчисли Цена" onAction="#onCalculatePrice"/>
+
+    <Label fx:id="priceLabel" text="Цена: 0.00 лв." style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <Separator/>
+
+    <Button text="ИЗПРАТИ ПРАТКАТА" onAction="#onSubmit"
+            style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 14px;"/>
+
+    <Label fx:id="statusLabel"/>
+</VBox>

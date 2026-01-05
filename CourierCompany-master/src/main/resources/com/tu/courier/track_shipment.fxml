@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.TrackShipmentController"
+      alignment="TOP_CENTER" spacing="20" prefWidth="600" prefHeight="500"
+      style="-fx-background-color: #f4f6f8;">
+
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+    <Text text="ПРОСЛЕДИ ПРАТКА" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2c3e50;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="searchField" promptText="Въведи номер на товарителница (10 знака)..."
+                   prefWidth="300" style="-fx-font-size: 14px; -fx-padding: 10;"/>
+        <Button text="🔍 ТЪРСИ" onAction="#onSearch"
+                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 20;"/>
+    </HBox>
+
+    <Label fx:id="errorLabel" textFill="RED" style="-fx-font-size: 14px;"/>
+
+    <VBox fx:id="resultBox" spacing="15" visible="false"
+          style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-padding: 20; -fx-background-radius: 5;">
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="Статус:" style="-fx-font-size: 16px;"/>
+            <Label fx:id="lblStatus" text="DELIVERED" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+        </HBox>
+
+        <Separator/>
+
+        <GridPane hgap="15" vgap="10">
+            <Label text="От:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label fx:id="lblSender" text="..." GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="До:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label fx:id="lblReceiver" text="..." GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Адрес:" style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <Label fx:id="lblAddress" text="..." GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Дата:" style="-fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <Label fx:id="lblDate" text="..." GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+    </VBox>
+</VBox>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.ManageCouriersController"
+      spacing="15" prefHeight="600" prefWidth="800">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Text text="Управление на Куриери" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/> <TextField fx:id="searchField" promptText="🔍 Търси по име/username..." prefWidth="200"/>
+        <Button text="➕ Нов Куриер" onAction="#onAddCourier" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+    </HBox>
+
+    <TableView fx:id="couriersTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colName" text="Име" prefWidth="150"/>
+            <TableColumn fx:id="colUsername" text="Username" prefWidth="100"/>
+            <TableColumn fx:id="colCity" text="Град" prefWidth="100"/>
+            <TableColumn fx:id="colOffice" text="Офис" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button text="✏️ Редактирай избрания" onAction="#onEditCourier" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+        <Button text="🗑️ Изтрий избрания" onAction="#onDeleteCourier" style="-fx-background-color: #c0392b; -fx-text-fill: white;"/>
+    </HBox>
+
+    <Label fx:id="statusLabel" textFill="RED"/>
+</VBox>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.ShipmentEditController"
+      alignment="CENTER" spacing="15" prefWidth="400">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Text text="Редакция на Пратка" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <Label text="Адрес за доставка:"/>
+    <TextField fx:id="addressField"/>
+
+    <Label text="Цена (лв):"/>
+    <TextField fx:id="priceField"/>
+
+    <Label text="Статус:"/>
+    <ComboBox fx:id="statusBox" prefWidth="360"/>
+
+    <Button text="ЗАПАЗИ ПРОМЕНИТЕ" onAction="#onSave"
+            style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+    <Label fx:id="msgLabel" textFill="RED"/>
+</VBox>

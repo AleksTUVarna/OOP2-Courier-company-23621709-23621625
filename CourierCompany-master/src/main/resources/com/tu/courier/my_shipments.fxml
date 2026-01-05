@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.MyShipmentsController"
+      spacing="15" prefHeight="600" prefWidth="900"
+      style="-fx-background-color: #f4f6f8;">
+
+    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+    <Text text="МОИТЕ ПРАТКИ" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2c3e50;"/>
+
+    <TableView fx:id="myShipmentsTable" VBox.vgrow="ALWAYS" style="-fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+        <columns>
+            <TableColumn fx:id="colTrackingId" text="Товарителница" prefWidth="120" style="-fx-font-weight: bold;"/>
+            <TableColumn fx:id="colType" text="Роля" prefWidth="80"/> <TableColumn fx:id="colOtherParty" text="Кореспондент" prefWidth="150"/>
+            <TableColumn fx:id="colAddress" text="Адрес" prefWidth="200"/>
+            <TableColumn fx:id="colPrice" text="Цена" prefWidth="70"/>
+            <TableColumn fx:id="colStatus" text="Статус" prefWidth="100"/>
+            <TableColumn fx:id="colDate" text="Дата" prefWidth="120"/>
+        </columns>
+    </TableView>
+
+    <Button text="🔄 Обнови" onAction="#onRefresh" style="-fx-background-color: #2980b9; -fx-text-fill: white;"/>
+</VBox>

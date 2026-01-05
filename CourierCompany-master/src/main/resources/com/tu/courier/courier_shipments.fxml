@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.tu.courier.controller.CourierShipmentsController"
+      spacing="10" alignment="TOP_CENTER" prefWidth="700" prefHeight="500">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Text text="Пратки за изпълнение" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="shipmentsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colSender" text="Подател" prefWidth="100"/>
+            <TableColumn fx:id="colReceiver" text="Получател" prefWidth="100"/>
+            <TableColumn fx:id="colAddress" text="Адрес" prefWidth="200"/>
+            <TableColumn fx:id="colPrice" text="Цена" prefWidth="80"/>
+            <TableColumn fx:id="colStatus" text="Статус" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="✅ Маркирай като ДОСТАВЕНА" onAction="#onMarkDelivered"
+                style="-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 14px;"/>
+
+        <Button text="🔄 Обнови списъка" onAction="#onRefresh"/>
+    </HBox>
+
+    <Label fx:id="statusLabel"/>
+</VBox>

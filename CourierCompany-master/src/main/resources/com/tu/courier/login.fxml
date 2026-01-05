@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.tu.courier.controller.LoginController"
+           stylesheets="@styles.css">
+
+    <VBox alignment="CENTER" spacing="20.0" maxWidth="400" maxHeight="450" styleClass="login-container">
+
+        <Text text="КУРИЕРСКА СИСТЕМА" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #333;"/>
+        <Text text="Вход в системата" style="-fx-font-size: 16px; -fx-fill: #666;"/>
+
+        <TextField fx:id="usernameField" promptText="Потребителско име"/>
+        <PasswordField fx:id="passwordField" promptText="Парола"/>
+
+        <Label fx:id="errorLabel" textFill="RED" wrapText="true"/>
+
+        <Button text="ВЛЕЗ" onAction="#onLoginButtonClick"
+                maxWidth="Infinity" styleClass="button-primary"/>
+
+        <Separator/>
+
+        <HBox alignment="CENTER">
+            <Label text="Нямате акаунт? "/>
+            <Button text="Регистрирай се тук" onAction="#onRegisterLinkClick" styleClass="link-button"/>
+        </HBox>
+    </VBox>
+
+    <VBox fx:id="loadingOverlay" alignment="CENTER" style="-fx-background-color: rgba(255,255,255,0.7);" visible="false">
+        <ProgressIndicator />
+        <Label text="Зареждане..." style="-fx-font-weight: bold;"/>
+    </VBox>
+
+</StackPane>
