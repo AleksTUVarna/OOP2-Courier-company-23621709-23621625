@@ -1,15 +1,14 @@
 package com.tu.courier.controller;
 
-import com.tu.courier.CourierApp;
 import com.tu.courier.dao.UserDAO;
 import com.tu.courier.entity.User;
 import com.tu.courier.util.HibernateUtil;
+import com.tu.courier.util.SessionManager;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -27,8 +26,8 @@ public class LoginController {
 
     @FXML
     protected void onLoginButtonClick() {
-        String username = usernameField.getText().strip();
-        String password = passwordField.getText().strip();
+        String username = usernameField.getText() == null ? "" : usernameField.getText().strip();
+        String password = passwordField.getText() == null ? "" : passwordField.getText().strip();
 
         // 1. Валидация за празни полета
         if (username.isBlank() || password.isBlank()) {
@@ -45,7 +44,7 @@ public class LoginController {
             @Override
             protected User call() throws Exception {
                 // Симулираме леко забавяне, за да се види ефекта (можеш да го махнеш после)
-                Thread.sleep(800);
+                Thread.sleep(300);
 
                 UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
                 return userDAO.findByUsername(username);
@@ -57,7 +56,10 @@ public class LoginController {
             loadingOverlay.setVisible(false); // Скриваме индикатора
             User user = loginTask.getValue(); // Взимаме резултата
 
-            if (user != null && user.getPassword().equals(password)) {
+            if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
+                // ✅ ВАЖНО: пазим текущия user за останалите екрани (Notifications и т.н.)
+                SessionManager.setCurrentUser(user);
+
                 openHomeScreen(user);
             } else {
                 errorLabel.setText("Грешно потребителско име или парола.");
@@ -68,11 +70,15 @@ public class LoginController {
         loginTask.setOnFailed(event -> {
             loadingOverlay.setVisible(false);
             errorLabel.setText("Грешка при връзка със сървъра!");
-            loginTask.getException().printStackTrace();
+            if (loginTask.getException() != null) {
+                loginTask.getException().printStackTrace();
+            }
         });
 
         // 6. Стартираме задачата в нова нишка
-        new Thread(loginTask).start();
+        Thread t = new Thread(loginTask);
+        t.setDaemon(true);
+        t.start();
     }
 
     private void openHomeScreen(User user) {
@@ -118,13 +124,18 @@ public class LoginController {
     @FXML
     public void onRegisterLinkClick() {
         try {
+            // Ако някой е логнат и отиде към register - чистим сесията
+            SessionManager.clear();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tu/courier/register_self.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(new Scene(root)); // Сменяме сцената в същия прозорец
+            stage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
+            errorLabel.setText("Грешка при зареждане на регистрацията!");
         }
     }
 }

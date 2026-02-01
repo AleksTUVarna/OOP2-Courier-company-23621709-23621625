@@ -1,25 +1,32 @@
 package com.tu.courier.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Data // Lombok прави getters, setters автоматично
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "client_no", unique = true)
-    private Integer clientNo;
+    // За клиенти
+    @Column(name = "client_no")
+    private String clientNo;
 
-    @Column(name = "courier_no", unique = true)
-    private Integer courierNo;
-
+    // За куриери
+    @Column(name = "courier_no")
+    private String courierNo;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -27,27 +34,19 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(unique = true)
+    private String phone;
+
+    private String email;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    @Column(name = "full_name")
-    private String fullName;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "phone", unique = true)
-    private String phone;
-
-    @Override
-    public String toString() {
-        return fullName + " (" + username + ")";
-    }
-
     @ManyToOne
     @JoinColumn(name = "office_id")
     private Office office;
-
-
 }

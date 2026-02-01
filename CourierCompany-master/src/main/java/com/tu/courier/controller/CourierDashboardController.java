@@ -54,6 +54,12 @@ public class CourierDashboardController {
     }
 
     @FXML
+    public void onNotificationsClick() {
+        loadView("notifications.fxml", "Известия");
+    }
+
+
+    @FXML
     public void onOfficesClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tu/courier/manage_offices.fxml"));

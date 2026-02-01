@@ -24,12 +24,15 @@
                     style="-fx-font-weight: bold;"
                     onAction="#onCreateShipmentByAdmin"/>
 
+            <Button text="🔔 Известия" styleClass="menu-button" onAction="#onNotificationsClick"/>
             <Button text="📦 Пратки" styleClass="menu-button" onAction="#onShipmentsClick"/>
             <Button text="🚚 Куриери" styleClass="menu-button" onAction="#onCouriersClick"/>
             <Button text="👥 Клиенти" styleClass="menu-button" onAction="#onClientsClick"/>
             <Button text="🏢 Офиси" styleClass="menu-button" onAction="#onOfficesClick"/>
             <Button text="📊 Справки" styleClass="menu-button" onAction="#onReportsClick"/>
             <Button text="🔍 Проследи Пратка" styleClass="menu-button" onAction="#onTrackClick"/>
+
+
 
             <Region VBox.vgrow="ALWAYS"/> <Separator style="-fx-opacity: 0.1; -fx-background-color: white;"/>
             <Button text="⚙️ Настройки" styleClass="menu-button" onAction="#onSettingsClick"/>

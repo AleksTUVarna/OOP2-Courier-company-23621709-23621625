@@ -19,6 +19,8 @@
         <mapping class="com.tu.courier.entity.User"/>
         <mapping class="com.tu.courier.entity.Office"/>
         <mapping class="com.tu.courier.entity.Shipment"/>
+        <mapping class="com.tu.courier.entity.Notification"/>
+
 
     </session-factory>
 </hibernate-configuration>

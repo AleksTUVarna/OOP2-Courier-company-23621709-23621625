@@ -4,6 +4,7 @@ import com.tu.courier.dao.OfficeDAO;
 import com.tu.courier.dao.ShipmentDAO;
 import com.tu.courier.dao.UserDAO;
 import com.tu.courier.entity.*;
+import com.tu.courier.service.NotificationService;
 import com.tu.courier.util.HibernateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -45,6 +46,9 @@ public class CreateShipmentController {
     private User foundReceiverUser;
 
     private BigDecimal calculatedPrice = BigDecimal.ZERO;
+
+    // ✅ Notifications
+    private final NotificationService notificationService = new NotificationService();
 
     @FXML
     public void initialize() {
@@ -308,6 +312,7 @@ public class CreateShipmentController {
         }
 
         if (rbReceiverClient.isSelected()) {
+            // ✅ FIX: липсваше setReceiver(...)
             s.setReceiver(foundReceiverUser);
             s.setReceiverName(foundReceiverUser.getFullName());
             s.setReceiverPhone(foundReceiverUser.getPhone());
@@ -344,7 +349,11 @@ public class CreateShipmentController {
             return;
         }
 
+        // ✅ Persist shipment
         new ShipmentDAO(HibernateUtil.getSessionFactory()).createShipment(s);
+
+        // ✅ Notifications (след успешен запис)
+        createShipmentNotifications(s);
 
         showSuccess("Пратката е създадена успешно!");
 
@@ -356,6 +365,25 @@ public class CreateShipmentController {
         tfReceiverPhone.clear();
         receiverStatusLabel.setText("");
         updatePriceUI();
+    }
+
+    private void createShipmentNotifications(Shipment s) {
+        // Пази 1 общ формат, за да е ясно и в UI-то
+        String tracking = s.getTrackingId();
+        String msgSender = "You created a shipment. Tracking ID: " + tracking;
+        String msgReceiver = "A shipment was created for you. Tracking ID: " + tracking;
+        String msgGlobal = "Shipment created. Tracking ID: " + tracking;
+
+        // Sender/Receiver са null при guest
+        if (s.getSender() != null) {
+            notificationService.notifyUser(s.getSender(), s, msgSender);
+        }
+        if (s.getReceiver() != null) {
+            notificationService.notifyUser(s.getReceiver(), s, msgReceiver);
+        }
+
+        // “Audit log” / общи известия (по желание, но ти го искаш за всяко действие)
+        notificationService.notifyGlobal(s, msgGlobal);
     }
 
     public void setup(User user) {

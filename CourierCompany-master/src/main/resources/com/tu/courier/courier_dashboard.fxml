@@ -19,6 +19,7 @@
 
             <Separator style="-fx-opacity: 0.1; -fx-background-color: white;"/>
 
+            <Button text="🔔 Известия" styleClass="menu-button" onAction="#onNotificationsClick"/>
             <Button text="🚛 Активни Задачи" styleClass="menu-button" style="-fx-font-weight: bold;" onAction="#onActiveTasks"/>
             <Button text="👤 Регистрирай Клиент" styleClass="menu-button" onAction="#onRegisterClient"/>
             <Button text="🔍 Проследи Пратка" styleClass="menu-button" onAction="#onTrackClick"/>

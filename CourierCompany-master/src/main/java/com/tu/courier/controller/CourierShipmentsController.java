@@ -3,6 +3,7 @@ package com.tu.courier.controller;
 import com.tu.courier.dao.ShipmentDAO;
 import com.tu.courier.entity.Shipment;
 import com.tu.courier.entity.ShipmentStatus;
+import com.tu.courier.service.NotificationService;
 import com.tu.courier.util.HibernateUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -29,10 +30,12 @@ public class CourierShipmentsController {
     @FXML private Label statusLabel;
 
     private ShipmentDAO shipmentDAO;
+    private NotificationService notificationService;
 
     @FXML
     public void initialize() {
         shipmentDAO = new ShipmentDAO(HibernateUtil.getSessionFactory());
+        notificationService = new NotificationService();
 
         // Настройка на колоните (какво да показват)
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -46,7 +49,6 @@ public class CourierShipmentsController {
 
         colReceiver.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getReceiverDisplayName()));
-
 
         loadData();
     }
@@ -68,22 +70,54 @@ public class CourierShipmentsController {
         Shipment selected = shipmentsTable.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
+            statusLabel.setStyle("-fx-text-fill: red;");
             statusLabel.setText("❌ Първо изберете пратка от таблицата!");
             return;
         }
 
-        // Променяме статуса
+        // Ако вече е доставена - просто информираме (за всеки случай)
+        if (selected.getStatus() == ShipmentStatus.DELIVERED) {
+            statusLabel.setStyle("-fx-text-fill: orange;");
+            statusLabel.setText("⚠️ Пратка #" + selected.getId() + " вече е със статус DELIVERED.");
+            return;
+        }
+
+        // 1) Променяме статуса
         selected.setStatus(ShipmentStatus.DELIVERED);
 
-        // Записваме в базата
-        shipmentDAO.updateShipment(selected);
+        try {
+            // 2) Записваме в базата
+            shipmentDAO.updateShipment(selected);
 
-        statusLabel.setStyle("-fx-text-fill: green;");
-        statusLabel.setText("✅ Пратка #" + selected.getId() + " е доставена успешно!");
+            // 3) Създаваме известия (ако sender/receiver са регистрирани User-ове)
+            // (ако са guest, sender/receiver обектите вероятно са null)
+            String trackingId = selected.getTrackingId();
+            String messageForSender = "✅ Your shipment was delivered. Tracking ID: " + trackingId;
+            String messageForReceiver = "✅ A shipment to you was delivered. Tracking ID: " + trackingId;
 
-        // Обновяваме таблицата (пратката ще изчезне, защото вече е DELIVERED)
-        loadData();
+            // Подател
+            if (selected.getSender() != null) {
+                notificationService.notifyUser(selected.getSender(), selected, messageForSender);
+            }
+
+            // Получател
+            if (selected.getReceiver() != null) {
+                notificationService.notifyUser(selected.getReceiver(), selected, messageForReceiver);
+            }
+
+            // По желание: глобално известие (примерно за админ лог)
+            notificationService.notifyGlobal(selected, "Shipment delivered. Tracking ID: " + trackingId);
+
+            statusLabel.setStyle("-fx-text-fill: green;");
+            statusLabel.setText("✅ Пратка #" + selected.getId() + " е доставена успешно!");
+
+            // 4) Обновяваме таблицата (пратката ще изчезне, защото вече е DELIVERED)
+            loadData();
+
+        } catch (Exception e) {
+            statusLabel.setStyle("-fx-text-fill: red;");
+            statusLabel.setText("❌ Грешка при доставяне/известия: " + e.getMessage());
+            // По желание: e.printStackTrace(); (за debug)
+        }
     }
-
-
 }

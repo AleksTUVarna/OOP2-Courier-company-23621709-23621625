@@ -19,10 +19,12 @@
 
             <Separator style="-fx-opacity: 0.1; -fx-background-color: white;"/>
 
+            <Button text="🔔 Известия" styleClass="menu-button" onAction="#onNotificationsClick"/>
             <Button text="➕ Изпрати Пратка" styleClass="menu-button" style="-fx-font-weight: bold;" onAction="#onSendShipment"/>
             <Button text="📦 Моите Пратки" styleClass="menu-button" onAction="#onMyShipments"/>
             <Button text="🔍 Проследи Пратка" styleClass="menu-button" onAction="#onTrackClick"/>
             <Button text="🏢 Офиси" styleClass="menu-button" onAction="#onOfficesClick"/>
+
 
             <Region VBox.vgrow="ALWAYS"/>
 
