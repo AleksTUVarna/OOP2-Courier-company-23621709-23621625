@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.tu.courier.controller.ReportsController">
+
+    <top>
+        <HBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="From:" />
+            <DatePicker fx:id="fromDatePicker" />
+            <Label text="To:" />
+            <DatePicker fx:id="toDatePicker" />
+
+            <Button text="Generate" onAction="#onGenerate"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TabPane>
+            <Tab text="Summary" closable="false">
+                <VBox spacing="8">
+                    <padding>
+                        <Insets top="12" right="12" bottom="12" left="12"/>
+                    </padding>
+
+                    <Label fx:id="totalCountLabel" text="Total shipments: -" />
+                    <Label fx:id="totalRevenueLabel" text="Total revenue: -" />
+                    <Label fx:id="avgPriceLabel" text="Avg price: -" />
+                    <Label fx:id="avgWeightLabel" text="Avg weight: -" />
+                </VBox>
+            </Tab>
+
+            <Tab text="By Office" closable="false">
+                <VBox>
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+
+                    <TableView fx:id="byOfficeTable"
+                               VBox.vgrow="ALWAYS"
+                               prefHeight="400"
+                               prefWidth="800">
+
+                    <columns>
+                        <TableColumn fx:id="officeNameCol" text="Office" prefWidth="300"/>
+                        <TableColumn fx:id="shipmentsCountCol" text="Shipments" prefWidth="150"/>
+                        <TableColumn fx:id="revenueCol" text="Revenue" prefWidth="200"/>
+
+                    </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <Tab text="By Status / Type" closable="false">
+                <HBox spacing="10">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+
+                    <VBox VBox.vgrow="ALWAYS">
+                        <Label text="By Status"/>
+                        <TableView fx:id="byStatusTable"
+                                   VBox.vgrow="ALWAYS"
+                                   prefHeight="400"
+                                   prefWidth="800">
+
+                        <columns>
+                            <TableColumn fx:id="statusKeyCol" text="Status" prefWidth="200"/>
+                            <TableColumn fx:id="statusCountCol" text="Count" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox VBox.vgrow="ALWAYS">
+                        <Label text="By Type"/>
+                        <TableView fx:id="byTypeTable"
+                                   VBox.vgrow="ALWAYS"
+                                   prefHeight="400"
+                                   prefWidth="800">
+
+                        <columns>
+                            <TableColumn fx:id="typeKeyCol" text="Type" prefWidth="200"/>
+                            <TableColumn fx:id="typeCountCol" text="Count" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </HBox>
+            </Tab>
+        </TabPane>
+    </center>
+
+</BorderPane>
